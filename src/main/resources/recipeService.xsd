@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.example.org/RecipeService"
+        xmlns:tns="http://www.example.org/RecipeService"
+        elementFormDefault="qualified">
+
+    <xs:complexType name="recipe">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="title" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="timeInMinutes" type="xs:int" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="ingredients" minOccurs="0" maxOccurs="unbounded" type="tns:ingredient"/>
+            <xs:element name="steps"  minOccurs="0" maxOccurs="unbounded" type="tns:step"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="step">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="title" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="stepNumber" type="xs:int" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="recipeId" type="xs:long" maxOccurs="1" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ingredient">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="title" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="amount" type="xs:double" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="recipeId" type="xs:long" maxOccurs="1" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="GetRecipeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetRecipeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="recipe" type="tns:recipe" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CreateRecipeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="recipe" type="tns:recipe" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateRecipeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
