@@ -1,5 +1,6 @@
 package com.recipemanager;
 
+import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -20,8 +21,8 @@ import org.springframework.xml.xsd.XsdSchema;
 @EnableWebMvc
 public class ApplicationConfig implements WebMvcConfigurer {//extends WsConfigurerAdapter {
 
-    /*@Bean
-    public ServletRegistrationBean dispatcherServletRegistation(ApplicationContext applicationContext) {
+    @Bean
+    public ServletRegistrationBean dispatcherServletRegistration(ApplicationContext applicationContext) {
         MessageDispatcherServlet messageDispatcherServlet = new MessageDispatcherServlet();
         messageDispatcherServlet.setApplicationContext(applicationContext);
         messageDispatcherServlet.setTransformWsdlLocations(true);
@@ -30,7 +31,7 @@ public class ApplicationConfig implements WebMvcConfigurer {//extends WsConfigur
     }
 
     @Bean
-    public DispatcherServletRegistrationBean dispatcherServlet(ApplicationContext applicationContext) {
+    public DispatcherServletRegistrationBean dispatcherServletasasas(ApplicationContext applicationContext) {
         DispatcherServlet dispatcherServlet = new DispatcherServlet();
         dispatcherServlet.setApplicationContext(applicationContext);
 
@@ -39,7 +40,7 @@ public class ApplicationConfig implements WebMvcConfigurer {//extends WsConfigur
         dispatcherBean.setLoadOnStartup(1);
 
         return dispatcherBean;
-    }*/
+    }
 
     @Bean(name = "recipeManagerServiceWsdl")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema recipesSchema) {

@@ -28,10 +28,9 @@ public class Step {
     @JoinColumn(foreignKey = @ForeignKey(name = "recipe_fkey"), name="recipe_id", nullable=false)
     private Recipe recipe;
 
-    public Step(String title, Integer stepNumber, Long recipeId) {
+    public Step(String title, Integer stepNumber, Recipe recipe) {
         this.title = title;
         this.stepNumber = stepNumber;
-        this.recipe = new Recipe();
-        this.recipe.setId(recipeId);
+        this.recipe = recipe;
     }
 }

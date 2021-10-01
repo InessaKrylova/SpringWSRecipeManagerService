@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "recipe", uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
+@Table(name = "recipe")
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +24,9 @@ public class Recipe {
     @Column(name="time_in_minutes")
     private Integer timeInMinutes;
 
-    @OneToMany(mappedBy="recipe")
+    @OneToMany(mappedBy="recipe", fetch = FetchType.EAGER)
     private List<Step> steps;
-    @OneToMany(mappedBy="recipe")
+    @OneToMany(mappedBy="recipe", fetch = FetchType.EAGER)
     private List<Ingredient> ingredients;
 
     public Recipe(String title, Integer timeInMinutes, List<Step> steps, List<Ingredient> ingredients) {

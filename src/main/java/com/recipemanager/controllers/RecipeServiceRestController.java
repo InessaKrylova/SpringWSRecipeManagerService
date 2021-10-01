@@ -1,10 +1,10 @@
 package com.recipemanager.controllers;
 
-import com.recipemanager.datalayer.mappers.ModelToEntityMapper;
 import com.recipemanager.datalayer.entity.Ingredient;
 import com.recipemanager.datalayer.entity.Step;
-import com.recipemanager.service.RecipeManagerService;
-import com.recipemanager.service.RecipeManagerServiceImpl;
+import com.recipemanager.mappers.implementations.RecipeMapperImpl;
+import com.recipemanager.mappers.interfaces.RecipeMapper;
+import com.recipemanager.service.*;
 import org.example.recipeservice.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,20 +19,20 @@ import java.util.List;
 public class RecipeServiceRestController {
 
     private RecipeManagerService recipeManagerService;
-    private ModelToEntityMapper mapper;
+    private RecipeMapper recipeMapper;
 
     @Autowired
-    public RecipeServiceRestController(RecipeManagerServiceImpl recipeManagerServiceImpl, ModelToEntityMapper mapper) {
+    public RecipeServiceRestController(RecipeManagerServiceImpl recipeManagerServiceImpl, RecipeMapperImpl recipeMapperImpl) {
         this.recipeManagerService = recipeManagerServiceImpl;
-        this.mapper = mapper;
+        this.recipeMapper = recipeMapperImpl;
     }
 
     @GetMapping("/")
     public ResponseEntity<String> index() {
-        List<Recipe> recipes = mapper.mapListRecipesEntitiesToModels(recipeManagerService.getAllRecipes());
+        List<Recipe> recipes = recipeMapper.entityListToModelList(recipeManagerService.getAllRecipes());
         StringBuilder allRecipes = new StringBuilder();
-        for (Recipe r : recipes){
-            allRecipes.append(recipeToString(r));
+        for (Recipe recipe : recipes){
+            allRecipes.append(recipeToString(recipe));
         }
         return new ResponseEntity<>(allRecipes.toString(), HttpStatus.OK);
     }
@@ -64,21 +64,19 @@ public class RecipeServiceRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<String> getRecipe(@PathVariable("id") Long id) {
-        Recipe recipe = mapper.mapRecipeEntityToModel(recipeManagerService.getRecipe(id));
+        Recipe recipe = recipeMapper.entityToModel(recipeManagerService.getRecipe(id));
         return new ResponseEntity<>(recipeToString(recipe), HttpStatus.OK);
     }
 
     @GetMapping("/findRecipeByTime")
     public ResponseEntity<String> findRecipeByTime(@RequestParam(name="time") String time) {
-        List<Recipe> recipes = mapper.mapListRecipesEntitiesToModels(
-                recipeManagerService.findRecipeByTime(Integer.valueOf(time)));
+        List<Recipe> recipes = recipeMapper.entityListToModelList(recipeManagerService.findRecipeByTime(Integer.valueOf(time)));
         return new ResponseEntity<>(listToString(recipes), HttpStatus.OK);
     }
 
     @GetMapping("/findRecipeByTitle")
     public ResponseEntity<String> findRecipeByTitle(@RequestParam(name="title") String title) {
-        List<Recipe> recipes = mapper.mapListRecipesEntitiesToModels(
-                recipeManagerService.findRecipeByTitle(title));
+        List<Recipe> recipes = recipeMapper.entityListToModelList(recipeManagerService.findRecipeByTitle(title));
         return new ResponseEntity<>(listToString(recipes), HttpStatus.OK);
     }
 

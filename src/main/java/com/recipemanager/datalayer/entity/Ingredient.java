@@ -28,10 +28,9 @@ public class Ingredient {
     @JoinColumn(foreignKey = @ForeignKey(name = "recipe_fkey"), name="recipe_id", nullable=false)
     private Recipe recipe;
 
-    public Ingredient(String title, Double amount, Long recipeId) {
+    public Ingredient(String title, Double amount, Recipe recipe) {
         this.title = title;
         this.amount = amount;
-        this.recipe = new Recipe();
-        this.recipe.setId(recipeId);
+        this.recipe = recipe;
     }
 }

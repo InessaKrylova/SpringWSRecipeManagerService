@@ -1,9 +1,10 @@
 package com.recipemanager.controllers;
 
-import com.recipemanager.datalayer.mappers.ModelToEntityMapper;
 import com.recipemanager.datalayer.entity.Ingredient;
 import com.recipemanager.datalayer.entity.Step;
-import com.recipemanager.service.RecipeManagerService;
+import com.recipemanager.mappers.implementations.*;
+import com.recipemanager.mappers.interfaces.*;
+import com.recipemanager.service.*;
 import org.example.recipeservice.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -18,18 +19,25 @@ public class RecipeServiceSoapEndpoint {
     private static final String namespaceUri = "http://www.example.org/RecipeService";
 
     private RecipeManagerService recipeManagerService;
-    private ModelToEntityMapper mapper;
+    private RecipeMapper recipeMapper;
+    private StepMapper stepMapper;
+    private IngredientMapper ingredientMapper;
 
     @Autowired
-    public void RecipeManagerService (RecipeManagerService recipeManagerService, ModelToEntityMapper mapper) {
-        this.recipeManagerService = recipeManagerService;
-        this.mapper = mapper;
+    public void RecipeManagerService (RecipeManagerServiceImpl recipeManagerServiceImpl,
+                                      StepMapperImpl stepMapperImpl,
+                                      IngredientMapperImpl ingredientMapperImpl,
+                                      RecipeMapperImpl recipeMapperImpl) {
+        this.recipeManagerService = recipeManagerServiceImpl;
+        this.ingredientMapper = ingredientMapperImpl;
+        this.recipeMapper = recipeMapperImpl;
+        this.stepMapper = stepMapperImpl;
     }
 
     @PayloadRoot(localPart = "GetRecipeRequest", namespace = namespaceUri)
     @ResponsePayload
     public GetRecipeResponse getRecipe(@RequestPayload GetRecipeRequest request) throws Exception {
-        Recipe recipe = mapper.mapRecipeEntityToModel(recipeManagerService.getRecipe(request.getId()));
+        Recipe recipe = recipeMapper.entityToModel(recipeManagerService.getRecipe(request.getId()));
 
         GetRecipeResponse response = new GetRecipeResponse();
         response.setRecipe(recipe);
@@ -43,8 +51,8 @@ public class RecipeServiceSoapEndpoint {
         String title = request.getRecipe().getTitle();
         Integer time = request.getRecipe().getTimeInMinutes();
 
-        List<Step> steps = mapper.mapListStepsModelsToEntities(request.getRecipe().getSteps());
-        List<Ingredient> ingredients = mapper.mapListIngredientModelsToEntities(request.getRecipe().getIngredients());
+        List<Step> steps = stepMapper.modelListToEntityList(request.getRecipe().getSteps());
+        List<Ingredient> ingredients = ingredientMapper.modelListToEntityList(request.getRecipe().getIngredients());
 
         Long recipeId = recipeManagerService.createRecipe(title, time, steps, ingredients);
 
