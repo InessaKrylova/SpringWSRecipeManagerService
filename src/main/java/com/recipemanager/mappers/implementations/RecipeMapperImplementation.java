@@ -1,20 +1,18 @@
 package com.recipemanager.mappers.implementations;
 
 import com.recipemanager.datalayer.entity.Recipe;
-import com.recipemanager.mappers.interfaces.IngredientMapper;
-import com.recipemanager.mappers.interfaces.RecipeMapper;
-import com.recipemanager.mappers.interfaces.StepMapper;
+import com.recipemanager.mappers.IngredientMapper;
+import com.recipemanager.mappers.StepMapper;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RecipeMapperImpl implements RecipeMapper {
+public class RecipeMapperImplementation  {
 
     private final IngredientMapper ingredientMapper = Mappers.getMapper(IngredientMapper.class);
     private final StepMapper stepMapper = Mappers.getMapper(StepMapper.class);
 
-    @Override
     public Recipe modelToEntity(org.example.recipeservice.Recipe recipeModel) {
         return new com.recipemanager.datalayer.entity.Recipe(
                 recipeModel.getId(),
@@ -25,7 +23,6 @@ public class RecipeMapperImpl implements RecipeMapper {
         );
     }
 
-    @Override
     public org.example.recipeservice.Recipe entityToModel(Recipe recipeEntity) {
         org.example.recipeservice.Recipe recipeModel = new org.example.recipeservice.Recipe();
         recipeModel.setTitle(recipeEntity.getTitle());
@@ -41,12 +38,10 @@ public class RecipeMapperImpl implements RecipeMapper {
         return recipeModel;
     }
 
-    @Override
     public List<Recipe> modelListToEntityList(List<org.example.recipeservice.Recipe> recipeModels) {
         return recipeModels.stream().map(r -> modelToEntity(r)).collect(Collectors.toList());
     }
 
-    @Override
     public List<org.example.recipeservice.Recipe> entityListToModelList(List<Recipe> recipeEntities) {
         return recipeEntities.stream().map(r -> entityToModel(r)).collect(Collectors.toList());
     }

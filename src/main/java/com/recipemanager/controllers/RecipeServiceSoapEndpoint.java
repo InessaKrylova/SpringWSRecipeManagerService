@@ -2,8 +2,10 @@ package com.recipemanager.controllers;
 
 import com.recipemanager.datalayer.entity.Ingredient;
 import com.recipemanager.datalayer.entity.Step;
-import com.recipemanager.mappers.implementations.*;
-import com.recipemanager.mappers.interfaces.*;
+import com.recipemanager.mappers.*;
+import com.recipemanager.mappers.IngredientMapperImpl;
+import com.recipemanager.mappers.RecipeMapperImpl;
+import com.recipemanager.mappers.StepMapperImpl;
 import com.recipemanager.service.*;
 import org.example.recipeservice.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ public class RecipeServiceSoapEndpoint {
     private static final String namespaceUri = "http://www.example.org/RecipeService";
 
     private RecipeManagerService recipeManagerService;
+
     private RecipeMapper recipeMapper;
     private StepMapper stepMapper;
     private IngredientMapper ingredientMapper;

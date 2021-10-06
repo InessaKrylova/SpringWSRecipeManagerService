@@ -2,8 +2,7 @@ package com.recipemanager.controllers;
 
 import com.recipemanager.datalayer.entity.Ingredient;
 import com.recipemanager.datalayer.entity.Step;
-import com.recipemanager.mappers.implementations.RecipeMapperImpl;
-import com.recipemanager.mappers.interfaces.RecipeMapper;
+import com.recipemanager.mappers.RecipeMapper;
 import com.recipemanager.service.*;
 import org.example.recipeservice.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class RecipeServiceRestController {
     private RecipeMapper recipeMapper;
 
     @Autowired
-    public RecipeServiceRestController(RecipeManagerServiceImpl recipeManagerServiceImpl, RecipeMapperImpl recipeMapperImpl) {
+    public RecipeServiceRestController(RecipeManagerServiceImpl recipeManagerServiceImpl, RecipeMapper recipeMapperImpl) {
         this.recipeManagerService = recipeManagerServiceImpl;
         this.recipeMapper = recipeMapperImpl;
     }
