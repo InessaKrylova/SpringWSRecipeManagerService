@@ -9,18 +9,20 @@ import java.util.List;
 @Mapper
 public interface IngredientMapper {
 
-    @Mapping(source = "recipeId", target = "recipe") //TODO
+    @Mapping(source = "recipeId", target = "recipe")
     Ingredient modelToEntity(org.example.recipeservice.Ingredient ingredient);
 
-    @Mapping(source = "recipe", target = "recipeId") //TODO
+    @Mapping(source = "recipe", target = "recipeId")
     org.example.recipeservice.Ingredient entityToModel(Ingredient ingredient);
 
-    //@Mapping(source = "recipe", target = "recipeId") //TODO
     List<Ingredient> modelListToEntityList(List<org.example.recipeservice.Ingredient> ingredientModels);
 
-    //@Mapping(source = "recipeId", target = "recipe") //TODO
     List<org.example.recipeservice.Ingredient> entityListToModelList(List<Ingredient> ingredientEntities);
 
-    com.recipemanager.datalayer.entity.Recipe map(Long recipeId);
+    com.recipemanager.datalayer.entity.Recipe mapRecipeIdToRecipe(Long recipeId);
+
+    default Long mapRecipeToRecipeId(com.recipemanager.datalayer.entity.Recipe recipe) {
+        return recipe.getId();
+    }
 }
 

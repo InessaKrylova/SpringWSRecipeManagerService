@@ -39,7 +39,7 @@ public class RecipeServiceSoapEndpoint {
 
     @PayloadRoot(localPart = "GetRecipeRequest", namespace = namespaceUri)
     @ResponsePayload
-    public GetRecipeResponse getRecipe(@RequestPayload GetRecipeRequest request) throws Exception {
+    public GetRecipeResponse getRecipe(@RequestPayload GetRecipeRequest request) {
         Recipe recipe = recipeMapper.entityToModel(recipeManagerService.getRecipe(request.getId()));
 
         GetRecipeResponse response = new GetRecipeResponse();
@@ -49,8 +49,7 @@ public class RecipeServiceSoapEndpoint {
 
     @PayloadRoot(localPart = "CreateRecipeRequest", namespace = namespaceUri)
     @ResponsePayload
-    public CreateRecipeResponse createRecipe(@RequestPayload CreateRecipeRequest request)
-            throws Exception {
+    public CreateRecipeResponse createRecipe(@RequestPayload CreateRecipeRequest request) {
         String title = request.getRecipe().getTitle();
         Integer time = request.getRecipe().getTimeInMinutes();
 

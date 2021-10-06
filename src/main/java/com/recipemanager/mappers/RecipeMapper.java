@@ -2,7 +2,6 @@ package com.recipemanager.mappers;
 
 import com.recipemanager.datalayer.entity.Recipe;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 

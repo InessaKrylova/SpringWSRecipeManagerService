@@ -9,17 +9,19 @@ import java.util.List;
 @Mapper
 public interface StepMapper {
 
-    @Mapping(source = "recipeId", target = "recipe") //TODO
+    @Mapping(source = "recipeId", target = "recipe")
     Step modelToEntity(org.example.recipeservice.Step step);
 
-    //@Mapping(source = "recipe", target = "recipeId") //TODO
+    @Mapping(source = "recipe", target = "recipeId")
     org.example.recipeservice.Step entityToModel(Step step);
 
-    //@Mapping(source = "recipe", target = "recipeId") //TODO
     List<Step> modelListToEntityList(List<org.example.recipeservice.Step> stepModels);
 
-    //@Mapping(source = "recipeId", target = "recipe") //TODO
     List<org.example.recipeservice.Step> entityListToModelList(List<Step> stepEntities);
 
-    com.recipemanager.datalayer.entity.Recipe map(Long recipeId);
+    com.recipemanager.datalayer.entity.Recipe mapRecipeIdToRecipe(Long recipeId);
+
+    default Long mapRecipeToRecipeId(com.recipemanager.datalayer.entity.Recipe recipe) {
+        return recipe.getId();
+    }
 }

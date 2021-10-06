@@ -6,8 +6,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @NoArgsConstructor
 @Service
@@ -26,7 +28,8 @@ public class RecipeManagerServiceImpl implements RecipeManagerService {
 
     @Override
     public Recipe getRecipe(Long id) {
-        Recipe recipe = recipeRepository.findById(id).get();
+        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
+        Recipe recipe = recipeOptional.isPresent()? recipeOptional.get() : null ;
 
         recipe.setSteps(stepRepository.findAllByRecipeId(id));
         recipe.setIngredients(ingredientRepository.findAllByRecipeId(id));

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-//@NoArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "recipe")
 public class Recipe {
@@ -33,8 +33,6 @@ public class Recipe {
         this.title = title;
         this.timeInMinutes = timeInMinutes;
     }
-
-    public Recipe(){}
 
     @Override
     public String toString() {

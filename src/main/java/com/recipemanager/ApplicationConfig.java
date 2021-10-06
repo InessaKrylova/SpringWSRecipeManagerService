@@ -1,6 +1,5 @@
 package com.recipemanager;
 
-import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -19,7 +18,7 @@ import org.springframework.xml.xsd.XsdSchema;
 @EnableWs
 @Configuration
 @EnableWebMvc
-public class ApplicationConfig implements WebMvcConfigurer {//extends WsConfigurerAdapter {
+public class ApplicationConfig implements WebMvcConfigurer {
 
     @Bean
     public ServletRegistrationBean dispatcherServletRegistration(ApplicationContext applicationContext) {
@@ -31,7 +30,7 @@ public class ApplicationConfig implements WebMvcConfigurer {//extends WsConfigur
     }
 
     @Bean
-    public DispatcherServletRegistrationBean dispatcherServletasasas(ApplicationContext applicationContext) {
+    public DispatcherServletRegistrationBean dispatcherServlet(ApplicationContext applicationContext) {
         DispatcherServlet dispatcherServlet = new DispatcherServlet();
         dispatcherServlet.setApplicationContext(applicationContext);
 
