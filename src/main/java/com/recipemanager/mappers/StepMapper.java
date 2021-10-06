@@ -6,7 +6,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface StepMapper {
 
     @Mapping(source = "recipeId", target = "recipe")

@@ -1,5 +1,7 @@
 package com.recipemanager;
 
+import com.recipemanager.mappers.RecipeMapper;
+import com.recipemanager.mappers.RecipeMapperImpl;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -59,4 +61,8 @@ public class ApplicationConfig implements WebMvcConfigurer {
     public XsdSchema recipesSchema() {
         return new SimpleXsdSchema(new ClassPathResource("recipeService.xsd"));
     }
+
+    @Bean
+    public RecipeMapper recipeMapper() { return new RecipeMapperImpl(); }
+
 }

@@ -21,7 +21,6 @@ public class RecipeServiceSoapEndpoint {
     private static final String namespaceUri = "http://www.example.org/RecipeService";
 
     private RecipeManagerService recipeManagerService;
-
     private RecipeMapper recipeMapper;
     private StepMapper stepMapper;
     private IngredientMapper ingredientMapper;

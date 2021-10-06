@@ -3,7 +3,6 @@ package com.recipemanager.datalayer.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -24,14 +23,17 @@ public class Recipe {
     @Column(name="time_in_minutes")
     private Integer timeInMinutes;
 
-    @OneToMany(mappedBy="recipe", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="recipe", fetch = FetchType.LAZY)
     private List<Step> steps;
-    @OneToMany(mappedBy="recipe", fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy="recipe", fetch = FetchType.LAZY)
     private List<Ingredient> ingredients;
 
     public Recipe(String title, Integer timeInMinutes, List<Step> steps, List<Ingredient> ingredients) {
         this.title = title;
         this.timeInMinutes = timeInMinutes;
+        this.steps = steps;
+        this.ingredients = ingredients;
     }
 
     @Override
